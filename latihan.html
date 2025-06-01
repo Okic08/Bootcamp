@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pilih Tanggal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Pilih Tanggal Lahir Anda</h2>
+    <div class="form-group">
+        <select id="day">
+            <option value="">Tanggal</option>
+        </select>
+
+        <select id="month">
+            <option value="">Bulan</option>
+        </select>
+
+        <select id="year">
+            <option value="">Tahun</option>
+        </select>
+    </div>
+
+    <button onclick="tampilkanTanggal()">Tampilkan</button>
+
+    <div class="output" id="result">Tanggal terpilih akan tampil di sini.</div>
+</div>
+
+<script>
+    const daySelect = document.getElementById('day');
+    const monthSelect = document.getElementById('month');
+    const yearSelect = document.getElementById('year');
+    const resultDiv = document.getElementById('result');
+
+    function populateDays(month, year) {
+        if (!month || !year) return;
+        daySelect.innerHTML = '<option value="">Tanggal</option>';
+        const daysInMonth = new Date(year, month, 0).getDate();
+        for (let i = 1; i <= daysInMonth; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.text = i;
+            daySelect.appendChild(option);
+        }
+    }
+
+    function populateMonths() {
+        const months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        monthSelect.innerHTML = '<option value="">Bulan</option>';
+        months.forEach((month, i) => {
+            const option = document.createElement('option');
+            option.value = i + 1;
+            option.text = month;
+            monthSelect.appendChild(option);
+        });
+    }
+
+    function populateYears(start, end) {
+        yearSelect.innerHTML = '<option value="">Tahun</option>';
+        for (let y = start; y <= end; y++) {
+            const option = document.createElement('option');
+            option.value = y;
+            option.text = y;
+            yearSelect.appendChild(option);
+        }
+    }
+
+    function tampilkanTanggal() {
+        const day = daySelect.value;
+        const month = monthSelect.options[monthSelect.selectedIndex]?.text;
+        const year = yearSelect.value;
+
+        if (day && month && year) {
+            resultDiv.textContent = `Tanggal yang Anda pilih: ${day} ${month} ${year}`;
+            resultDiv.classList.add('shown');
+        } else {
+            resultDiv.textContent = 'Mohon lengkapi pilihan tanggal, bulan, dan tahun.';
+            resultDiv.classList.remove('shown');
+        }
+    }
+
+    // Inisialisasi saat halaman dimuat
+    populateMonths();
+    populateYears(1990, 2025);
+
+    const today = new Date();
+    monthSelect.value = today.getMonth() + 1;
+    yearSelect.value = today.getFullYear();
+    populateDays(monthSelect.value, yearSelect.value);
+    daySelect.value = today.getDate();
+
+    // Perbarui tanggal jika bulan atau tahun berubah
+    monthSelect.addEventListener('change', () => {
+        if (yearSelect.value) {
+            populateDays(monthSelect.value, yearSelect.value);
+        }
+    });
+
+    yearSelect.addEventListener('change', () => {
+        if (monthSelect.value) {
+            populateDays(monthSelect.value, yearSelect.value);
+        }
+    });
+</script>
+
+</body>
+</html>
