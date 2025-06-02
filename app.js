@@ -1,11 +1,11 @@
 const express = require('express');
-const userRoutes = require('./routes/userRoutes'); // ← ini akan error jika hasil ekspor bukan router
+const userRoutes = require('./routes/userRoutes'); // harus benar
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 app.use(express.json());
-app.use('/users', userRoutes); // ✅ Harus router function, bukan object
+app.use('/users', userRoutes); // middleware function dari `router`
 
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);

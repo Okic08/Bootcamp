@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 const users = [
   {
     id: 1,
-    name: 'John Doe',
-    username: 'johndoe',
-    password: bcrypt.hashSync('password123', 10), // hash langsung
+    name: 'Ciko Nanda',
+    username: 'cikonanda',
+    password: bcrypt.hashSync('cikonanda', 10), 
     createdAt: new Date(),
     updatedAt: new Date()
   }

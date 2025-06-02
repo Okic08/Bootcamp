@@ -22,4 +22,4 @@ router.post('/login', (req, res) => {
   });
 });
 
-module.exports = router; // ✅ PENTING: harus langsung `router`, bukan `{ router }`
+module.exports = router; 
